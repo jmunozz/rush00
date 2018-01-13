@@ -1,0 +1,15 @@
+html {
+	color:black;
+}
+
+h3 {
+	font-size: 30px;
+}
+
+h1 {
+	font-size: 45px;
+}
+
+p, span, label {
+	font-size: 20px;
+}
