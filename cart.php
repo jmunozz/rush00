@@ -61,7 +61,6 @@ $string_cart_content = encodeCartContent($_SESSION['content']);
 $cart_content = decodeCartContent($string_cart_content);
 $is_empty = (count($cart_content) === 0);
 
-
 //Render page with templates
 include('./templates/head.html');
 include('./templates/header.php');
@@ -71,5 +70,6 @@ if ($is_empty) {
 } else {
 	include('./templates/cart.php');
 }
+include('./templates/footer.html');
 
 ?>

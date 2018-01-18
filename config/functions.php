@@ -17,6 +17,8 @@ function arrayToString($array) {
 function calculateTotalPrice($cart_content) {
 	$total = 0;
 	foreach($cart_content as $cart_product) {
+		if (!isset($cart_product['price']))
+			continue;
 		$total += $cart_product['price'] * $cart_product['quantity'];
 	}
 	return $total;
@@ -113,10 +115,17 @@ function getAll($object) {
 	$query = "SELECT * FROM " . $object . ";";
 	$connexion = getDBConnexion();
 	$result = mysqli_query($connexion, $query);
+	$mid_result = array();
 	$final_result = array();
 	while ($row = mysqli_fetch_assoc($result)) {
-		array_push($final_result, $row);
+		array_push($mid_result, $row);
 	}
+	foreach($mid_result as $m) {
+		if ($object == "carts" || $object == "users" || $m['is_active']) {
+			array_push($final_result ,$m);
+		}
+	}
+
 	return $final_result;
 }
 
@@ -168,13 +177,12 @@ function editUser($array) {
 */
 function deleteUser($id) {
 
-	$query = "DELETE `users`
-		WHERE `users`.`id` = ? ;";
+	$query = "DELETE FROM `users` WHERE `users`.`id` = ? ;";
 
 	$connexion = getDBConnexion();
 
 	$statement = mysqli_prepare($connexion, $query);
-	mysqli_stmt_bind_param($statement, $id);
+	mysqli_stmt_bind_param($statement, 'i', $id);
 	return mysqli_stmt_execute($statement);
 	
 }
@@ -189,7 +197,6 @@ function addTag($array) {
 
 	$connexion = getDBConnexion();
 
-	echo $query;
 	$statement = mysqli_prepare($connexion, $query);
 	mysqli_stmt_bind_param($statement, 'ss',
 			$array['name'], 
@@ -225,7 +232,9 @@ function editTag($array) {
 */
 function deleteTag($id) {
 
-	$query = "DELETE FROM `tags` WHERE `tags`.`id` = ?;";
+	$query = "UPDATE `tags` 
+	SET `is_active` = 0
+	WHERE `tags`.`id` = ?;";
 
 	$connexion = getDBConnexion();
 
@@ -246,7 +255,6 @@ function addProduct($array) {
 
 	$connexion = getDBConnexion();
 
-	print_r($array);
 	$statement = mysqli_prepare($connexion, $query);
 	mysqli_stmt_bind_param($statement, 'sssis',
 			$array['name'], 
@@ -264,7 +272,6 @@ function addProduct($array) {
 */
 function editProduct($array) {
 
-	
 
 	$query = "UPDATE `products`
 		SET `name` = ?, `description` = ?, `picture` = ?, `price` = ?, `tags` = ?, `updated_at` = CURRENT_TIMESTAMP, `is_active` = 1
@@ -285,7 +292,8 @@ function editProduct($array) {
 
 function deleteProduct($id) {
 	
-	$query = "DELETE FROM `products`
+	$query = "UPDATE `products`
+	SET `is_active` = 0
 	WHERE `products`.`id` = ? ;";
 
 	$connexion = getDBConnexion();
@@ -344,7 +352,7 @@ function editCart($array) {
 */
 function deleteCart($id) {
 
-	$query = "DELETE `carts`
+	$query = "DELETE FROM `carts`
 	WHERE `carts`.`id` = ? ;";
 
 	$connexion = getDBConnexion();
@@ -409,9 +417,9 @@ function img_check_errors($file)
 
 function img_upload($file, $img_name) 
 {
-	if (!file_exists('img_products'))
-		mkdir('img_products');
-	$res = move_uploaded_file($file['tmp_name'], 'img_products/'.$img_name);
+	if (!file_exists(IMG_DIRECTORY))
+		mkdir(IMG_DIRECTORY);
+	$res = move_uploaded_file($file['tmp_name'],  IMG_DIRECTORY . '/' . $img_name);
 	if (!$res)
 		return (FALSE);
 	return (TRUE);
@@ -427,8 +435,8 @@ function img_rename($file)
 
 function img_delete($img)
 {
-	echo 'img_products/'.$img;
-	return (unlink('img_products/'.$img));
+	echo IMG_DIRECTORY . $img;
+	return (unlink(IMG_DIRECTORY . $img));
 }
 
 ?>

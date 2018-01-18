@@ -1,6 +1,7 @@
 html {
-	color:black;
-}
+	color:white;
+	font-family: "Gill Sans", sans-serif;
+	background: linear-gradient(to right, #b5a4a4 2%, #6d222257 51%, #b5a4a4 75%);}
 
 h3 {
 	font-size: 30px;
@@ -12,4 +13,8 @@ h1 {
 
 p, span, label {
 	font-size: 20px;
+}
+
+li:hover {
+	text-shadow: 2px 2px 2px black;
 }

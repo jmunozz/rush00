@@ -14,6 +14,8 @@ session_start();
 $is_admin = isset($_SESSION['is_admin']) && ($_SESSION['is_admin'] == 1);
 $is_logged = isset($_SESSION['login']) && $_SESSION['login'] !== '';
 
+
+$alert = "";
 //A signin form has been submitted
 if (isset($_POST['sign'])) {
 
@@ -55,4 +57,8 @@ if (isset($_POST['sign'])) {
 include('./templates/head.html');
 include('./templates/header.php');
 include('./templates/alert.php');
-include('./templates/signin.php');
+if ($alert == "User has been added successfully!")
+	include ('./templates/login.php');
+else
+	include('./templates/signin.php');
+include('./templates/footer.html');

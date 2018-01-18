@@ -32,16 +32,23 @@ if(isset($_POST['add'])) {
 	}
 	$tags = arrayToString($tags);
 
-	// Add product to DB.
+	// A file has been added
+	$file_name = DEFAULT_IMG_NAME;
+	if (!img_check_errors($_FILES['picture'])) {
+		$file_name = img_rename($_FILES['picture']);
+		img_upload($_FILES['picture'], $file_name);
+	}
+
+	//Add product to DB.
 	$success = addProduct(array(
 		'name' => $_POST['name'],
 		'description' => $_POST['description'],
 		'tags' => $tags, 
 		'price' => $_POST['price'],
-		'picture' => 'default'
+		'picture' => $file_name
 	));
 
-	// Choose what alert to display.
+	//hoose what alert to display.
 	if ($success)
 		$alert = 'A new product has been added!';
 	else
@@ -55,7 +62,6 @@ include('../templates/head.html');
 include('../templates/header.php');
 include('../templates/alert.php');
 include('../templates/admin/menu.php');
-include('../templates/admin/add_product.php')
-
-
+include('../templates/admin/add_product.php');
+include('../templates/footer.html');
 ?>

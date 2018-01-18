@@ -30,13 +30,21 @@ if (isset($_POST['modify'])) {
 		if (strpos($key, 'tag_') !== false)
 			array_push($tags, substr($key, 4));
 	}
+
 	$tags = arrayToString($tags);
+
+	// A file has been added
+	$file_name = DEFAULT_IMG_NAME;
+	if (!img_check_errors($_FILES['picture'])) {
+		$file_name = img_rename($_FILES['picture']);
+		img_upload($_FILES['picture'], $file_name);
+	}
 
 	// Edit product in DB.
 	$success = editProduct(array(
 		'name' => $_POST['name'],
 		'description' => $_POST['description'],
-		'picture' => 'default',
+		'picture' => $file_name,
 		'price' => $_POST['price'],
 		'tags' => $tags,
 		'id' => $_POST['id']
@@ -95,6 +103,6 @@ include('../templates/header.php');
 include('../templates/alert.php');
 include('../templates/admin/menu.php');
 include('../templates/admin/modify_product.php');
-
+include('../templates/footer.html');
 
 ?>

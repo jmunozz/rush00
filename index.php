@@ -77,6 +77,7 @@ if ($show_details) {
 } else {
 	include('./templates/all_products.php');
 }
+include('./templates/footer.html');
 
 
 ?>

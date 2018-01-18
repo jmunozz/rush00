@@ -16,6 +16,8 @@ define('DB_NAME', 'testDB');
 ** File Constants
 */
 define('IMG_MAX_SIZE', 1500000);
+define('IMG_DIRECTORY', 'uploads');
+define('DEFAULT_IMG_NAME', 'default.png');
 
 
 ?>

@@ -69,5 +69,7 @@ include('../templates/header.php');
 include('../templates/alert.php');
 include('../templates/admin/menu.php');
 include('../templates/admin/modify_category.php');
+include('../templates/footer.html');
+
 
 ?>

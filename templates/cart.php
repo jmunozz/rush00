@@ -1,18 +1,23 @@
+<div class="limiter">
+My Cart
+</div>
 <div id="cart">
 	<?php
 
 			foreach($cart_content as $cart_product) {
+				if (!isset($cart_product['name']))
+					continue;
 	?>
 			<div class="cart_product">
 				<form method="POST" action="/cart.php">
-					<img class="miniature" <?php echo "src=\"/pictures/" . $cart_product['picture'] . "\""; ?>></img>
+					<img class="miniature" <?php echo "src=\"/admin/" . IMG_DIRECTORY . "/" . $cart_product['picture'] . "\""; ?>></img>
 					<span style="margin:0 10px"> <?php echo $cart_product['name']; ?></span>
 
-					<label>qty:</label>
-					<input name="quantity" type="number" value=<?php echo "\"" . $cart_product['quantity'] . "\""; ?> />
+					<label>Quantity :</label>
+					<input name="quantity" type="number" min="1" value=<?php echo "\"" . $cart_product['quantity'] . "\""; ?> />
 					<input name="id" type="hidden" value=<?php echo "\"" . $cart_product['id'] . "\""; ?> />
 					<input name="modify" type="submit" value="Modify" />
-					<input name="delete" type="submit" value="Delete" />
+					<input class="delete" name="delete" type="submit" value="Delete" />
 					<span><?php echo $cart_product['price'] . "$"; ?></span>
 				</form>
 			</div>

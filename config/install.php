@@ -59,25 +59,39 @@ $create_table_users = "CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 
-$insert_default_product = "INSERT INTO 
+$insert_default_product1 = "INSERT INTO 
 	`testDB`.`products` (`id`, `name`, `description`, `picture`, `price`, `tags`, `updated_at`, `is_active`) 
-	VALUES (NULL, 'default', 'd', 'd', '10.00', 'd', CURRENT_TIMESTAMP, '1');
+	VALUES (NULL, 'Knife', 'Sharp', 'knife.png', '162', '1', CURRENT_TIMESTAMP, '1');
 ";
 
+$insert_default_product2 = "INSERT INTO 
+  `testDB`.`products` (`id`, `name`, `description`, `picture`, `price`, `tags`, `updated_at`, `is_active`) 
+  VALUES (NULL, 'Axe', 'Behading', 'axe.png', '195', '1', CURRENT_TIMESTAMP, '1');
+";
+
+$insert_default_product3 = "INSERT INTO 
+  `testDB`.`products` (`id`, `name`, `description`, `picture`, `price`, `tags`, `updated_at`, `is_active`) 
+  VALUES (NULL, 'Sniper', 'Accurate', 'sniper.png', '650', '1', CURRENT_TIMESTAMP, '1');
+";
+
+
+$admin_password = hash('whirlpool', 'admin');
 $insert_default_user = "INSERT INTO 
 	`testDB`.`users` (`id`, `login`, `email`, `password`, `updated_at`, `is_admin`) 
-	VALUES (NULL, 'admin', 'admin@admin.com', 'admin', CURRENT_TIMESTAMP, '1');";
+	VALUES (NULL, 'admin', 'admin@admin.com', '" . $admin_password ."', CURRENT_TIMESTAMP, '1');";
 
 $insert_default_tag = "INSERT INTO 
 	`testDB`.`tags` (`id`, `name`, `description`, `updated_at`, `is_active`) 
-	VALUES (NULL, 'random', 'this is a default category', CURRENT_TIMESTAMP, '1');";
+	VALUES (NULL, 'Basics', 'must have', CURRENT_TIMESTAMP, '1');";
 
 $all_sql_queries = array(	
 	$create_table_carts,
 	$create_table_products,
  	$create_table_tags,
  	$create_table_users,
- 	$insert_default_product,
+ 	$insert_default_product1,
+  $insert_default_product2,
+  $insert_default_product3,
  	$insert_default_user,
  	$insert_default_tag
 );

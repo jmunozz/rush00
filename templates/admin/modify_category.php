@@ -1,4 +1,4 @@
-<div id="modify_product">
+<div id="modify_product" style="text-align: center">
 	<?php 
 		if (!$has_tag_selected) {
 	?>
@@ -12,7 +12,7 @@
 		<div id="admin_tag_list">
 			<?php
 				foreach($tag_list as $tag) {
-					echo "<a href=\"/admin_modify_category.php?" . 
+					echo "<a href=\"/admin/modify_category.php?" . 
 						"tag_id=". 
 						$tag['id'] . 
 						"\"><div class=\"tag\">" .
@@ -25,7 +25,7 @@
 		}
 		else {
 	?>
-	<form method="POST" action="/admin_modify_category.php">
+	<form method="POST" action="/admin/modify_category.php">
 		<label>Name</label>
 		<input name="name" type="text" <?php echo "value=\"" . $tag_infos['name'] . "\"" ?>/>
 		<label>Description</label>

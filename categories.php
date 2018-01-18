@@ -21,4 +21,6 @@ include('./templates/head.html');
 include('./templates/header.php');
 include('./templates/alert.php');
 include ('./templates/categories.php');
+include('./templates/footer.html');
+
 ?>

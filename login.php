@@ -51,3 +51,4 @@ include('./templates/head.html');
 include('./templates/header.php');
 include('./templates/alert.php');
 include('./templates/login.php');
+include('./templates/footer.html');

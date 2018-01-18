@@ -14,13 +14,21 @@ session_start();
 $is_admin = isset($_SESSION['is_admin']) && ($_SESSION['is_admin'] == 1);
 $is_logged = isset($_SESSION['login']) && $_SESSION['login'] !== '';
 
-//Unlog user or skip if not logged
-if(!$is_logged) {
+if(!$is_logged)
 	exit();
-} else {
-	$_SESSION['login'] = '';
-	$_SESSION['is_admin'] = '';
-	$_SESSION['id'] = '';
-	session_destroy();
-	header('Location: /');	
+if (isset($_POST['delaccount']))
+{
+deleteUser($_SESSION['id']);
+$_SESSION['login'] = '';
+$_SESSION['is_admin'] = '';
+$_SESSION['id'] = '';
+session_destroy();
+header("Location: /");
+}
+else
+{
+include('./templates/head.html');
+include('./templates/header.php');
+include('./templates/account.php');
+include('./templates/footer.html');
 }

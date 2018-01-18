@@ -1,4 +1,4 @@
-<div id="modify_product">
+<div id="modify_product" style="text-align: center">
 	<?php 
 		if (!$has_product_selected) {
 	?>
@@ -12,10 +12,10 @@
 		<div id="admin_product_list">
 			<?php
 				foreach($product_list as $product) {
-					echo "<a href=\"/admin_modify_product.php?" . 
+					echo "<a href=\"/admin/modify_product.php?" . 
 						"product_id=". 
 						$product['id'] . 
-						"\"><div class=\"product\">" .
+						"\"><div>" .
 						$product['name'] . 
 						"</div></a>";
 				}
@@ -25,7 +25,7 @@
 		}
 		else {
 	?>
-		<form method="POST" action="/admin_modify_product.php">
+		<form method="POST" action="/admin/modify_product.php" enctype="multipart/form-data">
 			<label>Name</label>
 			<input name="name" type="text" <?php echo "value=\"" . $product_infos['name'] . "\"" ?>/>
 			<label>Description</label>
@@ -33,17 +33,18 @@
 			<label>Price</label>
 			<input name="price" type="number" <?php echo "value=\"" . $product_infos['price'] . "\"" ?>/>
 			<label>Picture</label>
-			<input name="file" type="file" />
+			<input name="picture" type="file" />
+			<input type="hidden" name="MAX_FILE_SIZE" value="1000" />
 			<label>Category</label>
 			<?php 
 				foreach($allTags as $t) {
 					$selected = $t['selected'] ? 'checked' : '';
 
-					echo "<input name=\"tag_" . $t['name'] . "\" type=\"checkbox\"" . $selected . ">" . $t['name'] ."</input>";
+					echo "<input name=\"tag_" . $t['id'] . "\" type=\"checkbox\"" . $selected . ">" . $t['name'] ."</input>";
 				}
 			?>
-			<input type="submit" name="modify" value="modify"/>
-			<input type="submit" name="delete" value="delete"/>
+			<input type="submit" name="modify" value="Modify"/>
+			<input type="submit" name="delete" value="Delete"/>
 			<input type="hidden" name="id" value=<?php echo "\"" . $product_infos['id'] . "\""; ?> />
 		</form>
 	<?php

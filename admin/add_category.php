@@ -31,7 +31,7 @@ if(isset($_POST['add'])) {
 	} else {
 		// Add tag to DB.
 		$success = addTag(array(
-			'name' => $name,
+			'name' => preg_replace('/ +/', '-', $name),
 			'description' => $description 
 		));
 		// Choose what alert to display.
@@ -48,5 +48,7 @@ include('../templates/header.php');
 include('../templates/alert.php');
 include('../templates/admin/menu.php');
 include('../templates/admin/add_category.php');
+include('../templates/footer.html');
+
 
 ?>

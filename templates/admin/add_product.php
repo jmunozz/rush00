@@ -1,5 +1,5 @@
-<div id="add_product">
-	<form method="POST" action="/admin_add_product.php">
+<div id="add_product" style="text-align: center">
+	<form method="POST" action="/admin/add_product.php" enctype="multipart/form-data">
 		<label>Name</label>
 		<input name="name" type="text" />
 		<label>Description</label>
@@ -8,10 +8,12 @@
 		<input name="price" type="number" />
 		<label>Picture</label>
 		<input name="picture" type="file" />
+		<input type="hidden" name="MAX_FILE_SIZE" value="1000" />
+		<br />
 		<label>Category</label>
 		<?php 
 			foreach($allTags as $tag) {
-				echo "<input name=\"" . "tag_" . $tag['name'] ."\"" . " type=\"checkbox\">" . $tag['name'] ."</input>";
+				echo "<input name=\"" . "tag_" . $tag['id'] ."\"" . " type=\"checkbox\">" . $tag['name'] ."</input>";
 			}
 		?>
 		<input name="add" type="submit" />

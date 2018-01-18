@@ -1,4 +1,4 @@
-<div id="add_category">
+<div id="add_category" style="text-align: center">
 	<form method='POST', action='/admin/add_category.php'>
 		<label>Name</label>
 		<input name="name" stype="text" />
